@@ -36,6 +36,11 @@ import SwiftUI
 public final class FluidMenuBarExtra {
     private let statusItem: FluidMenuBarExtraStatusItem
 
+    public init(statusItem: NSStatusItem, @ViewBuilder content: @escaping () -> some View) {
+        let window = FluidMenuBarExtraWindow(title: "", content: content)
+        self.statusItem = FluidMenuBarExtraStatusItem(window: window, statusItem: statusItem)
+    }
+
     public init(title: String, @ViewBuilder content: @escaping () -> some View) {
         let window = FluidMenuBarExtraWindow(title: title, content: content)
         statusItem = FluidMenuBarExtraStatusItem(title: title, window: window)
@@ -49,5 +54,9 @@ public final class FluidMenuBarExtra {
     public init(title: String, systemImage: String, @ViewBuilder content: @escaping () -> some View) {
         let window = FluidMenuBarExtraWindow(title: title, content: content)
         statusItem = FluidMenuBarExtraStatusItem(title: title, systemImage: systemImage, window: window)
+    }
+
+    public func dismissWindow() {
+        statusItem.dismissWindow()
     }
 }
